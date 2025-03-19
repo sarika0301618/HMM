@@ -2,7 +2,9 @@
     "location_data": {
         "origin": "XINGANG, TIANJIN, CHINA",
         "destination": "JEBEL ALI, DUBAI, U.A.E",
-        "transitions": []
+        "transitions": [
+            "QINGDAO, CHINA"
+        ]
     },
     "tables_data": {
         "cntr_table": [

@@ -37,8 +37,15 @@ location_data = {}
 if len(locations) >= 2:
     location_data["origin"] = locations[0].text
     location_data["destination"] = locations[-1].text
-    transitions = driver.find_elements(By.XPATH, '//ul[@class="progress-bar"]/li/div[@class="text"]')
-    location_data["transitions"] = [transition.text.strip() for transition in transitions if transition.text.strip()]
+    try:
+        transitions = WebDriverWait(driver, 10).until(
+            EC.presence_of_all_elements_located((By.XPATH, "//li[@class='route-item']//div[@class='text']"))
+        )
+        print(f"Number of transitions found: {len(transitions)}")
+        location_data["transitions"] = [transition.text.strip() for transition in transitions if transition.text.strip()]
+    except TimeoutException:
+        print("No transition data found or element not loaded!")
+        location_data["transitions"] = []
 else:
     print("Insufficient location data found!")
 
